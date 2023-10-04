@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+        "command": "cd D:\\Data\\Documents\\tabbedBrowser-main && python D:\\Data\\Documents\\tabbedBrowser-main\\tabbedBrowser.py & exit",
+        "name": "Run StevenBrowser",
+        "request": "launch",
+        "type": "node-terminal"
+    },
+    
+
+    {
+        "command": "git commit -am deploynewapp && git push heroku master && start http://steven-meeting.herokuapp.com/hi & exit",
+        "name": "Heroku Deploy",
+        "request": "launch",
+        "type": "node-terminal"
+    },
+    ]
+}
