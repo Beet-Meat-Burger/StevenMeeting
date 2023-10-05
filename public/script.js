@@ -27,7 +27,7 @@ const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '3000'
+  port: '3030'
 })
 let myVideoStream;
 const myVideo = document.createElement('video')
