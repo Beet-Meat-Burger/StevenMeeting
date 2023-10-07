@@ -41,7 +41,7 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    socket.emit('join-room', ROOM_ID, pjsID, chatName)
+    joinRoom()
     
     myPeer.on('call', call => {
       count = count + 1
@@ -89,7 +89,7 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    socket.emit('join-room', ROOM_ID, pjsID, chatName)
+    joinRoom()
 
     myPeer.on('call', call => {
       count = count + 1
@@ -167,6 +167,13 @@ function connectToNewUser(userId, stream) {
     })
 
   peers[userId] = call
+}
+
+function joinRoom(){
+  while(pjsID == ""){
+    console.log("Waiting for PeerJS ID")
+  }
+  socket.emit('join-room', ROOM_ID, pjsID, chatName)
 }
 
 function addVideoStream(video, stream) {
