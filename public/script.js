@@ -42,7 +42,7 @@ if(!sharescreen == 1){
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
     if(window.chrome){
-      setTimeout(joinRoom,1000)
+      setTimeout(joinRoom,500)
     }else {
       joinRoom()
     }
@@ -95,7 +95,7 @@ if(!sharescreen == 1){
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
     if(window.chrome){
-      setTimeout(joinRoom,1000)
+      setTimeout(joinRoom,500)
     }else {
       joinRoom()
     }
