@@ -170,10 +170,7 @@ function connectToNewUser(userId, stream) {
 }
 
 function joinRoom(){
-  while(pjsID == ""){
-    //sleep for 0.1 sec
-    setTimeout(()=>{console.log("Waiting for PeerJS ID")},100)
-  }
+  browser.waitUntil(pjsID != "",{timeout:10000, timeoutMsg:"unable to retrieve pjsID", interval:500})
   socket.emit('join-room', ROOM_ID, pjsID, chatName)
 }
 
