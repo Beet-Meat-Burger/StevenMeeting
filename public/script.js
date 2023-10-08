@@ -22,6 +22,7 @@ function timeNow() {
 const timeJoined = timeNow()
 
 var count = 1;
+object.addEventListener("beforeunload", quitMeetingFast);
 const socket = io('/', {transports: ['polling']})
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
@@ -251,6 +252,10 @@ const quitMeeting = () => {
     window.location.replace("about:blank");
   }, 1000);
 
+}
+
+const quitMeetingFast = () => {
+  socket.emit('byebye', chatName);
 }
 
 const info = () => {
