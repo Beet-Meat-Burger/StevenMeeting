@@ -171,7 +171,7 @@ function connectToNewUser(userId, stream) {
 
 function joinRoom(){
   if(pjsID !== "") {
-    setTimeout(joinRoom(), 10000);
+    setTimeout(joinRoom, 10000);
     console.log("Waiting for PJS ID")
     return;
   }
