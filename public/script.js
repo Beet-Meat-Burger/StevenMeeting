@@ -41,7 +41,7 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    joinRoom()
+    setTimeout(joinRoom,100)
     
     myPeer.on('call', call => {
       count = count + 1
@@ -89,7 +89,7 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    joinRoom()
+    setTimeout(joinRoom,100)
 
     myPeer.on('call', call => {
       count = count + 1
