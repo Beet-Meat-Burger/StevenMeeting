@@ -41,7 +41,12 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    setTimeout(joinRoom,1000)
+    if(window.chrome){
+      setTimeout(joinRoom,1000)
+    }else {
+      joinRoom()
+    }
+    
     
     myPeer.on('call', call => {
       count = count + 1
@@ -89,7 +94,11 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    setTimeout(joinRoom,1000)
+    if(window.chrome){
+      setTimeout(joinRoom,1000)
+    }else {
+      joinRoom()
+    }
 
     myPeer.on('call', call => {
       count = count + 1
