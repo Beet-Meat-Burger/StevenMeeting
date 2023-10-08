@@ -298,7 +298,7 @@ if (mode != null) {
     $("ul").append(`<li class="message"><b style="color:#FF0000">Silently Left Meeting</b><br/></li>`);
   }else if(mode == 4){
     if(confirm("Share Screen Now?")){
-      window.open("/" + ROOM_ID + "?name=" + chatName + "(Screen)&screen=1", '_blank').focus();
+      window.open("/" + ROOM_ID + "?name=" + chatName + " (Screen)&screen=1", '_blank').focus();
     }
   }
 }
