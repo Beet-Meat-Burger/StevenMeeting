@@ -170,7 +170,11 @@ function connectToNewUser(userId, stream) {
 }
 
 function joinRoom(){
-  browser.waitUntil(pjsID != "",{timeout:10000, timeoutMsg:"unable to retrieve pjsID", interval:500})
+  if(pjsID !== "") {
+    setTimeout(joinRoom(), 50);
+    return;
+  }
+  
   socket.emit('join-room', ROOM_ID, pjsID, chatName)
 }
 
