@@ -22,7 +22,7 @@ function timeNow() {
 const timeJoined = timeNow()
 
 var count = 1;
-object.addEventListener("beforeunload", quitMeetingFast);
+document.addEventListener("beforeunload", quitMeetingFast);
 const socket = io('/', {transports: ['polling']})
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
