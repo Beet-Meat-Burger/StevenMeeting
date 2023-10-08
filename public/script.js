@@ -41,12 +41,7 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    if(window.chrome){
-      setTimeout(joinRoom,500)
-    }else {
-      joinRoom()
-    }
-    
+    setTimeout(joinRoom,500)
     
     myPeer.on('call', call => {
       count = count + 1
@@ -69,7 +64,7 @@ if(!sharescreen == 1){
           $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>${chatname} Joined The Meeting</li>`);
         }
       }
-      setTimeout(connectToNewUser,100,userId,stream)
+      setTimeout(connectToNewUser,0,userId,stream)
    });
   
     
@@ -94,11 +89,7 @@ if(!sharescreen == 1){
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
-    if(window.chrome){
-      setTimeout(joinRoom,500)
-    }else {
-      joinRoom()
-    }
+    setTimeout(joinRoom,500)
 
     myPeer.on('call', call => {
       count = count + 1
@@ -121,7 +112,7 @@ if(!sharescreen == 1){
           $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>${chatname} Joined The Meeting</li>`);
         }
       }
-      setTimeout(connectToNewUser,100,userId,stream)
+      setTimeout(connectToNewUser,0,userId,stream)
    });
   
     
