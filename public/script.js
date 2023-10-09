@@ -22,7 +22,7 @@ function timeNow() {
 const timeJoined = timeNow()
 
 var count = 1;
-addEventListener("beforeunload", quitMeetingFast);
+
 const socket = io('/', {transports: ['polling']})
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
@@ -34,6 +34,11 @@ let myVideoStream;
 const myVideo = document.createElement('video')
 myVideo.muted = true;
 const peers = {}
+
+const quitMeetingFast = () => {
+  socket.emit('byebye', chatName);
+}
+addEventListener("beforeunload", quitMeetingFast);
 
 if(!sharescreen == 1){
   navigator.mediaDevices.getUserMedia({
@@ -252,10 +257,6 @@ const quitMeeting = () => {
     window.location.replace("about:blank");
   }, 1000);
 
-}
-
-const quitMeetingFast = () => {
-  socket.emit('byebye', chatName);
 }
 
 const info = () => {
