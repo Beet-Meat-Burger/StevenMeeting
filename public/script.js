@@ -1,10 +1,10 @@
-
 const urlParam = window.location.search;
 const urlParams = new URLSearchParams(urlParam);
 var chatName = urlParams.get('name')
 var controls = "1"
 var sharescreen = urlParams.get("screen")
 var pjsID = ""
+var pjsPort = window.location.href.indexOf("https://")==0?"443":"3030";
 const videocontrols = urlParams.get("control")
 var joinleavemessages = true
 if(chatName == null){
@@ -28,7 +28,7 @@ const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443'
+  port: pjsPort
 })
 let myVideoStream;
 const myVideo = document.createElement('video')
@@ -36,6 +36,8 @@ myVideo.muted = true;
 const peers = {}
 
 const quitMeetingFast = () => {
+  socket.emit('byebye', chatName);
+  socket.emit('byebye', chatName);
   socket.emit('byebye', chatName);
 }
 addEventListener("beforeunload", quitMeetingFast);
@@ -63,14 +65,14 @@ if(!sharescreen == 1){
     socket.on("user-connected", (userId, chatname) => {
       count = count + 1;
       console.log("User Connected", userId);
+      setTimeout(connectToNewUser,0,userId,stream)
       if(joinleavemessages == true){
         if(chatname == undefined){
-          $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>A User Joined The Meeting</li>`);
+          $(document).trigger( "notiEvent", ["A User Joined The Meeting", " ", "success", false, "toast-top-center", true, "3000", "1000", "500", "100"] );
         }else{
-          $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>${chatname} Joined The Meeting</li>`);
+          $(document).trigger( "notiEvent", [chatName + " Joined The Meeting", " ", "success", false, "toast-top-center", true, "3000", "1000", "500", "100"] );
         }
       }
-      setTimeout(connectToNewUser,0,userId,stream)
    });
   
     
@@ -115,6 +117,7 @@ if(!sharescreen == 1){
         if(chatname == undefined){
           $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>A User Joined The Meeting</li>`);
         }else{
+          toastr["success"]("My name is Inigo Montoya. You killed my father. Prepare to die!")
           $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>${chatname} Joined The Meeting</li>`);
         }
       }
@@ -144,9 +147,9 @@ socket.on('user-disconnected', (userId, chatname) => {
   var elementExists = document.getElementById(userId);
   if (peers[userId] && elementExists && chatname != "etvtvshtvhfbfgzfvggvryvrgvegter" && joinleavemessages == true){
     if(chatname == undefined){
-      $("ul").append(`<li class="message"><b style="color:#F75D59"></b><br/>A User Left The Meeting</li>`);
+      $(document).trigger( "notiEvent", ["A User Left The Meeting", " ", "warning", false, "toast-top-center", true, "3000", "1000", "500", "100"] );
     }else{
-      $("ul").append(`<li class="message"><b style="color:#F75D59"></b><br/>${chatname} Left The Meeting</li>`);
+      $(document).trigger( "notiEvent", [chatName + " Left The Meeting", " ", "warning", false, "toast-top-center", true, "3000", "1000", "500", "100"] );
     }
   }
   if (peers[userId]) peers[userId].close()
