@@ -14,7 +14,7 @@
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
    <script src="/socket.io/socket.io.js" defer></script>
    <link rel="stylesheet" href="style.css">
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+   <link href="toastr.css" rel="stylesheet"/>
    <script src="https://kit.fontawesome.com/a6ca731a5d.js" crossorigin="anonymous"></script>
    <script src="noti.js"></script>
    <script src="script.js" defer></script>
@@ -34,11 +34,14 @@
    </style>
 </head>
 <body>
+   <div id="stevenmeeting-menu"></div>
    <div class="main">
       <div class="main__left">
-         <div class="main__videos">
-            <div id="video-grid">
-               <p id="spacer"><br><br></p>
+         <div class="menu-bar">StevenMeeting</div>
+         <div class="video-area">
+            <div class="main__videos">
+               <div id="video-grid">
+               </div>
             </div>
          </div>
          <div class="main__controls">

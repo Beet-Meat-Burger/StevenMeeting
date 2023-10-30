@@ -40,6 +40,26 @@ const quitMeetingFast = () => {
   socket.emit('byebye', chatName);
   socket.emit('byebye', chatName);
 }
+
+const showMenu = (type, yLocation) => {
+  const contextMenu = document.getElementById("stevenmeeting-menu");
+  contextMenu.innerHTML = `
+  <div class="item" onclick='alert("youClickedMe!");'>hihihi</div>
+  `;
+  contextMenu.style.top = `10px`;
+  contextMenu.style.left = `${yLocation}px`;
+
+  contextMenu.style.visibility = "visible";
+
+}
+
+addEventListener("click", (e) => {
+  const contextMenu = document.getElementById("stevenmeeting-menu");
+  if (e.target.offsetParent != contextMenu) {
+    contextMenu.style.visibility = "hidden";
+  }
+});
+
 addEventListener("beforeunload", quitMeetingFast);
 
 if(!sharescreen == 1){
@@ -255,6 +275,7 @@ const setPlayVideo = () => {
 }
 
 const quitMeeting = () => {
+  $(document).trigger( "notiEvent", ["Leaving Meeting...", " ", "error", true, "toast-top-center", true, "1000", "1000", "500", "100"] );
   socket.emit('byebye', chatName);
   setTimeout(function() {
     window.location.replace("about:blank");

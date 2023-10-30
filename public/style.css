@@ -1,6 +1,7 @@
 .main {
     height: 100vh;
     display: flex;
+    background-color: black;
 }
 
 .main__left {
@@ -20,7 +21,12 @@
     justify-content: center;
     align-items: center;
     padding: 40px;
+    min-height: 90vh;
+}
+
+.video-area {
     overflow: auto;
+    scrollbar-width: none;
 }
 
 .main__controls {
@@ -107,21 +113,47 @@
     visibility: hidden;
 }
 
-::-webkit-scrollbar {
-    width: 20px;
+.video-area::-webkit-scrollbar{
+    display: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #242324;
+.menu-bar {
+    color: white;
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: #242324;
-    border-radius: 20px;
-    border: 6px solid transparent;
-    background-clip: content-box;
+.menu-bar:hover {
+    background-color: #1c1e20;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background-color: #4a484a;
 }
+
+#stevenmeeting-menu {
+  position: fixed;
+  z-index: 10000;
+  width: 150px;
+  background: #1b1a1a;
+  border-radius: 5px;
+  color: #eee;
+}
+
+#stevenmeeting-menu.item {
+  padding: 8px 10px;
+  font-size: 15px;
+  color: #eee;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+#stevenmeeting-menu.item:hover {
+    background-color: #706d70;
+  }
+
+#stevenmeeting-menu {
+    color: #eee;
+    position: fixed;
+    z-index: 10000;
+    width: 150px;
+    background: #1b1a1a;
+    border-radius: 5px;
+    visibility: hidden;
+  }
