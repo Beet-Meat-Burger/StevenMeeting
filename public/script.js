@@ -44,7 +44,7 @@ const quitMeetingFast = () => {
 const showMenu = (type, yLocation) => {
   const contextMenu = document.getElementById("stevenmeeting-menu");
   contextMenu.innerHTML = `
-  <div class="item" onclick='alert("youClickedMe!");'>hihihi</div>
+  <div class="stevenmeeting-menu-item" onclick='alert("youClickedMe!");'>hihihi</div>
   `;
   contextMenu.style.top = `10px`;
   contextMenu.style.left = `${yLocation}px`;

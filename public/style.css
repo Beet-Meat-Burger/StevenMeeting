@@ -136,7 +136,7 @@
   color: #eee;
 }
 
-#stevenmeeting-menu.item {
+#stevenmeeting-menu-item {
   padding: 8px 10px;
   font-size: 15px;
   color: #eee;
@@ -144,8 +144,8 @@
   border-radius: 20px;
 }
 
-#stevenmeeting-menu.item:hover {
-    background-color: #706d70;
+#stevenmeeting-menu-item:hover {
+    background-color: white;
   }
 
 #stevenmeeting-menu {
