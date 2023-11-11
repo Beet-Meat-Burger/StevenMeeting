@@ -7,6 +7,7 @@ var pjsID = ""
 var pjsPort = window.location.href.indexOf("https://")==0?"443":"3030";
 const videocontrols = urlParams.get("control")
 var joinleavemessages = true
+var openedMenu = ""
 if(chatName == null){
   chatName = "User"
 }
@@ -40,26 +41,6 @@ const quitMeetingFast = () => {
   socket.emit('byebye', chatName);
   socket.emit('byebye', chatName);
 }
-
-const showMenu = (type, yLocation) => {
-  const contextMenu = document.getElementById("stevenmeeting-menu");
-  contextMenu.innerHTML = `
-  <div class="stevenmeeting-menu-item" onclick='alert("youClickedMe!");'>hihihi</div>
-  `;
-  contextMenu.style.top = `10px`;
-  contextMenu.style.left = `${yLocation}px`;
-
-  contextMenu.style.visibility = "visible";
-
-}
-
-addEventListener("click", (e) => {
-  const contextMenu = document.getElementById("stevenmeeting-menu");
-  if (e.target.offsetParent != contextMenu) {
-    contextMenu.style.visibility = "hidden";
-  }
-});
-
 addEventListener("beforeunload", quitMeetingFast);
 
 if(!sharescreen == 1){
@@ -332,4 +313,83 @@ if (mode != null) {
     }
   }
 }
+}
+
+
+const onMenubarItemHovered = (type, xLocation, yLocation) => {
+  if(openedMenu != type && openedMenu != "") {
+    closeMenu("")
+    showMenu(type, xLocation, yLocation);
+  }
+}
+
+const menuItemClicked = (type, xLocation, yLocation) => {
+  if(openedMenu == ""){
+    showMenu(type, xLocation, yLocation);
+  }else {
+    closeMenu("");
+  }
+}
+
+const leaveSilently = () => {
+  $(document).trigger( "notiEvent", ["Leaving Meeting Silently...", " ", "error", true, "toast-top-center", true, "1000", "1000", "500", "100"] );
+  socket.emit('byebye', "etvtvshtvhfbfgzfvggvryvrgvegter");
+  setTimeout(function() {
+    window.location.replace("about:blank");
+  }, 1000);
+}
+
+const showMenu = (type, xLocation, yLocation) => {
+  const contextMenu = document.getElementById("stevenmeeting-menu");
+  if (type == "stevenMeeting") {
+    openedMenu = "stevenMeeting"
+    document.getElementById("menu-bar-logo").style.backgroundColor = "#706d70"
+    contextMenu.innerHTML = `
+    <div class="stevenmeeting-menu-item" onclick='alert("youClickedMe!");'>StevenMeeting<br><small style="color: #68efad;">Version 1.3</small></div>
+    `;
+  }
+
+  if (type == "security") {
+    openedMenu = "security"
+    document.getElementById("menu-bar").style.backgroundColor = "#1c1e20"
+    document.getElementById("menu-bar").style.color = "#ffffff"
+    document.getElementById("menu-bar-security").style.backgroundColor = "#706d70"
+    contextMenu.innerHTML = `
+    <div class="stevenmeeting-menu-item" onclick='alert("youClickedMe!");'>Encryption</div>
+    <div class="stevenmeeting-menu-item" onclick='leaveSilently()'>Leave Silently</div>
+    `;
+  }
+  contextMenu.style.top = `${xLocation}px`;
+  contextMenu.style.left = `${yLocation}px`;
+
+  contextMenu.style.visibility = "visible";
+
+}
+
+addEventListener("click", (e) => closeMenu(e));
+
+const closeMenu = (e) => {
+  const contextMenu = document.getElementById("stevenmeeting-menu");
+  const menuBar = document.getElementById("menu-bar");
+  if(e != ""){
+    if (e.target.offsetParent != contextMenu && !menuBar.matches(':hover')) {
+      contextMenu.style.visibility = "hidden";
+      if (openedMenu == "stevenMeeting") {
+        document.getElementById("menu-bar-logo").style.cssText = ""
+      }else if(openedMenu == "security") {
+        document.getElementById("menu-bar").style.cssText = "";
+        document.getElementById("menu-bar-security").style.cssText = "";
+      }
+      openedMenu = ""
+    }
+  }else {
+    contextMenu.style.visibility = "hidden";
+    if (openedMenu == "stevenMeeting") {
+      document.getElementById("menu-bar-logo").style.cssText = ""
+    }else if(openedMenu == "security") {
+      document.getElementById("menu-bar").style.cssText = "";
+      document.getElementById("menu-bar-security").style.cssText = "";
+    }
+    openedMenu = ""
+  }
 }
