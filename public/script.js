@@ -46,7 +46,7 @@ addEventListener("beforeunload", quitMeetingFast);
 if(!sharescreen == 1){
   navigator.mediaDevices.getUserMedia({
     video: true,
-    audio: true
+    audio: true,
   }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
@@ -339,6 +339,13 @@ const leaveSilently = () => {
   }, 1000);
 }
 
+const shareScreen = (openedFromMenu) => {
+  if(openedFromMenu){
+    closeMenu("")
+  }
+  window.open("/" + ROOM_ID + "?name=" + chatName + "&screen=1", '_blank').focus
+}
+
 const showMenu = (type, xLocation, yLocation) => {
   const contextMenu = document.getElementById("stevenmeeting-menu");
   if (type == "stevenMeeting") {
@@ -359,8 +366,72 @@ const showMenu = (type, xLocation, yLocation) => {
     <div class="stevenmeeting-menu-item" onclick='leaveSilently()'>Leave Silently</div>
     `;
   }
-  contextMenu.style.top = `${xLocation}px`;
-  contextMenu.style.left = `${yLocation}px`;
+
+  if (type == "meeting") {
+    openedMenu = "meeting"
+    document.getElementById("menu-bar").style.backgroundColor = "#1c1e20"
+    document.getElementById("menu-bar").style.color = "#ffffff"
+    document.getElementById("menu-bar-meeting").style.backgroundColor = "#706d70"
+    contextMenu.innerHTML = `
+    <div class="stevenmeeting-menu-item" onclick='shareScreen(true);'>Share Screen</div>
+    <div class="stevenmeeting-menu-item" onclick='rename()'>Rename</div>
+    `;
+  }
+
+  if (type == "connection") {
+    openedMenu = "connection"
+    document.getElementById("menu-bar").style.backgroundColor = "#1c1e20"
+    document.getElementById("menu-bar").style.color = "#ffffff"
+    document.getElementById("menu-bar-connection").style.backgroundColor = "#706d70"
+    contextMenu.innerHTML = `
+    <div class="stevenmeeting-menu-item" onclick='alert("youClickedMe!");'>Encryption</div>
+    <div class="stevenmeeting-menu-item" onclick='leaveSilently()'>Leave Silently</div>
+    `;
+  }
+
+  if (type == "notifications") {
+    openedMenu = "notifications"
+    document.getElementById("menu-bar").style.backgroundColor = "#1c1e20"
+    document.getElementById("menu-bar").style.color = "#ffffff"
+    document.getElementById("menu-bar-notifications").style.backgroundColor = "#706d70"
+    contextMenu.innerHTML = `
+    <div class="stevenmeeting-menu-slider">
+    <table style="width:60%">
+    <tbody>
+    <tr>
+    <td>Join</td>
+    <td>
+      <label class="switch menuSwitch">
+      <input type="checkbox" checked>
+      <span class="slider round menuSwitch"></span>
+      </label>
+    </td>
+    </tr>
+    <tr>
+    <td>Leave</td>
+    <td>
+      <label class="switch menuSwitch">
+      <input type="checkbox" checked>
+      <span class="slider round menuSwitch"></span>
+      </label>
+    </td>
+    </tr>
+    <tr>
+    <td>Apps</td>
+    <td>
+      <label class="switch menuSwitch">
+      <input type="checkbox" checked>
+      <span class="slider round menuSwitch"></span>
+      </label>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    `;
+  }
+  contextMenu.style.top = `${xLocation - window.scrollY}px`;
+  contextMenu.style.left = `${yLocation - window.scrollX}px`;
 
   contextMenu.style.visibility = "visible";
 
@@ -372,23 +443,23 @@ const closeMenu = (e) => {
   const contextMenu = document.getElementById("stevenmeeting-menu");
   const menuBar = document.getElementById("menu-bar");
   if(e != ""){
-    if (e.target.offsetParent != contextMenu && !menuBar.matches(':hover')) {
-      contextMenu.style.visibility = "hidden";
+    if (!contextMenu.matches(':hover') && !menuBar.matches(':hover')) {
       if (openedMenu == "stevenMeeting") {
         document.getElementById("menu-bar-logo").style.cssText = ""
-      }else if(openedMenu == "security") {
+      }else {
         document.getElementById("menu-bar").style.cssText = "";
-        document.getElementById("menu-bar-security").style.cssText = "";
+        document.getElementById("menu-bar-" + openedMenu).style.cssText = "";
       }
-      openedMenu = ""
+      contextMenu.style.visibility = "hidden";
+      openedMenu = "" 
     }
   }else {
     contextMenu.style.visibility = "hidden";
     if (openedMenu == "stevenMeeting") {
       document.getElementById("menu-bar-logo").style.cssText = ""
-    }else if(openedMenu == "security") {
+    }else {
       document.getElementById("menu-bar").style.cssText = "";
-      document.getElementById("menu-bar-security").style.cssText = "";
+      document.getElementById("menu-bar-" + openedMenu).style.cssText = "";
     }
     openedMenu = ""
   }
