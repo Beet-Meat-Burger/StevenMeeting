@@ -448,6 +448,7 @@ const closeMenu = (e) => {
       }else {
         document.getElementById("menu-bar").style.cssText = "";
         document.getElementById("menu-bar-" + openedMenu).style.cssText = "";
+        contextMenu.innerHTML = "";
       }
       contextMenu.style.visibility = "hidden";
       openedMenu = "" 
