@@ -222,8 +222,11 @@
     left: 2px;
     bottom: 2.5px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    transition-behavior: normal;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: left;
   }
   
   input:checked + .slider {

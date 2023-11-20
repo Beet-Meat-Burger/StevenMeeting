@@ -118,7 +118,6 @@ if(!sharescreen == 1){
         if(chatname == undefined){
           $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>A User Joined The Meeting</li>`);
         }else{
-          toastr["success"]("My name is Inigo Montoya. You killed my father. Prepare to die!")
           $("ul").append(`<li class="message"><b style="color:#ffffff"></b><br/>${chatname} Joined The Meeting</li>`);
         }
       }
