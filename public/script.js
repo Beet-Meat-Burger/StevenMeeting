@@ -150,7 +150,7 @@ socket.on('user-disconnected', (userId, chatname) => {
     if(chatname == undefined){
       $(document).trigger( "notiEvent", ["A User Left The Meeting", " ", "warning", false, "toast-top-center", true, "3000", "1000", "500", "100"] );
     }else{
-      $(document).trigger( "notiEvent", [chatName + " Left The Meeting", " ", "warning", false, "toast-top-center", true, "3000", "1000", "500", "100"] );
+      $(document).trigger( "notiEvent", [chatname + " Left The Meeting", " ", "warning", false, "toast-top-center", true, "3000", "1000", "500", "100"] );
     }
   }
   if (peers[userId]) peers[userId].close()
