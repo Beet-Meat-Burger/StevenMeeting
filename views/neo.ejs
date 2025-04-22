@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>StevenMeeting</title>
+   <script>
+      const ROOM_ID = "<%= roomId %>"
+   </script>
+
+   <link rel="stylesheet" href="/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/css/toastr.css">
+   <link rel="stylesheet" href="/css/newStyle.css">
+   <link rel="stylesheet" href="/fontawesome-free-6.7.2-web/css/all.css">
+   <link rel="stylesheet" href="/css/all.css">
+   <link href="/css/Roberto/roberto.css" rel="stylesheet">
+
+   <script src="/ui/jquery-3.7.1.min.js"></script>
+   <script src="/ui/toastr.min.js"></script>
+   <script defer src="/js/peerjs.min.js"></script>
+   <script src="/ui/popper.min.js"></script>
+   <script src="/socket.io/socket.io.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+   <script src="/ui/noti.js"></script>
+   <script src="/js/script1.js"></script>
+   <script src="/js/connect.js" defer></script>
+   <style>
+      #video-grid{
+         display: flex;
+         justify-content: center;
+         flex-wrap: wrap;
+      }
+      video{
+         border-radius: 15px;
+         height: 300px;
+         width: 400px;
+         object-fit: cover;
+         padding: 8px;
+      }
+   </style>
+</head>
+<body>
+   <div id="stevenmeeting-menu" style="visibility: hidden;"></div>
+   <div class="modal-background">
+      <div class="modal-box">
+         <div id="titleGradient">
+            <h2>StevenMeeting</h2>
+            <br>
+         </div>
+         <div id="modal-list">
+            <p class="modal-list-item"><i class="fa-solid fa-circle-user" style="font-size: 21px;"></i> Join meeting as <input type="text" class="text-input" id="name-input" placeholder="User"></p>
+            <p class="modal-list-item"><i class="fa-solid fa-video" style="font-size: 18px;"></i> Meeting starts with video on. <a href="/gg">Change this</a></p>
+            <p class="modal-list-item"><i class="fa-solid fa-lock" style="font-size: 23px;"></i> StevenMeeting keeps you secure. <a href="/gg">Learn more</a></p>
+         </div>
+         <div id="modal-box-button">
+            <button class="green-btn" style="width: 200px;" onclick="connect()">
+               Join Meeting
+            </button>
+         </div>
+      </div>
+   </div>
+   <div class="main">
+      <div class="main__left">
+         <div id="menu-bar" class="menu-bar"><button id="menu-bar-logo" class="menu-bar-logo" onmouseover="onMenubarItemHovered('stevenMeeting', 29, 3)" onclick="menuItemClicked('stevenMeeting', 29, 3)">StevenMeeting</button>
+            <span class="item" id="menu-bar-security" onmouseover="onMenubarItemHovered('security', 29, 104)" onclick="menuItemClicked('security', 29, 104)">Security</span>
+            <span class="item" id="menu-bar-meeting" onmouseover="onMenubarItemHovered('meeting', 29, 161)" onclick="menuItemClicked('meeting', 29, 161)">Meeting</span>
+            <span class="item" id="menu-bar-connection" onmouseover="onMenubarItemHovered('connection', 29, 221)" onclick="menuItemClicked('connection', 29, 221)">Connection</span>
+            <span class="item" id="menu-bar-notifications" onmouseover="onMenubarItemHovered('notifications', 29, 299)" onclick="menuItemClicked('notifications', 29, 299)">Notifications</span>
+
+         </div>
+         <div class="video-area">
+            <div class="main__videos">
+               <div id="video-grid">
+               </div>
+            </div>
+         </div>
+         <div class="main__controls">
+            <div class="main__controls__block">
+               <div onclick="muteUnmute()" class="main__controls__button main__mute_button">
+                  <i class="fas fa-microphone"></i>
+               </div>
+               <div onclick="playStop()" class="main__controls__button main__video_button" >
+                  <i class="fas fa-video"></i>
+               </div>
+            </div>
+            <div class="main__controls__block">
+               <div onclick="more()" class="main__controls__button">
+                  <i class="fas fa-ellipsis"></i>
+               </div>
+               <div onclick="invite()" class="main__controls__button">
+                  <i class="fas fa-share-from-square"></i>
+               </div>
+               <div onclick="info()" class="main__controls__button">
+                  <i class="fas fa-circle-info"></i>
+               </div>
+               <div onclick="rename()" class="main__controls__button">
+                  <i class="fas fa-comment"></i>
+               </div>
+            </div>
+            <div class="main__controls__block">
+               <div onclick="quitMeeting()" class="main__controls__leave__button">
+                  <span class="leave_meeting">Leave Meeting</span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="main__right">
+         <div class="main__header">
+            <h6>Chat</h6>
+         </div>
+         <div class="main__chat_window">
+            <ul class="messages">
+            </ul>
+         </div>
+         <div class="main__message_container">
+            <input id="chat_message" type="text" placeholder="Type message here...">
+         </div>
+      </div>
+   </div>
+</body>
+</html>

@@ -12,6 +12,8 @@ const peerServer = ExpressPeerServer(server, {
   debug: true
 });
 
+app.use(express.static('public'))
+
 const { v4: uuidV4 } = require('uuid')
 
 app.use('/peerjs', peerServer);
@@ -20,11 +22,11 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  res.redirect(`/${uuidV4()}` + "?name=User")
+  res.redirect(`/meet/${uuidV4()}` + "?name=User")
 })
 
-app.get('/:room', (req, res) => {
-  res.render('room', { roomId: req.params.room })
+app.get('/meet/:room', (req, res) => {
+  res.render('neo', { roomId: req.params.room })
 })
 
 io.on('connection', socket => {
@@ -39,13 +41,9 @@ io.on('connection', socket => {
 
     socket.on('byebye', (chatname) => {
       socket.broadcast.to(roomId).emit('user-disconnected', userId, chatname)
-      socket.broadcast.to(roomId).emit('user-disconnected', userId, chatname)
-      socket.broadcast.to(roomId).emit('user-disconnected', userId, chatname)
     })
 
     socket.on('disconnect', () => {
-      socket.broadcast.to(roomId).emit('user-disconnected', userId, undefined)
-      socket.broadcast.to(roomId).emit('user-disconnected', userId, undefined)
       socket.broadcast.to(roomId).emit('user-disconnected', userId, undefined)
     })
   })
